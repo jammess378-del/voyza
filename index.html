@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Point - Your Ultimate Travel Gateway</title>
+    <title>Voyza - Your World, Reimagined</title>
 
-    <!-- Google Fonts: Poppins -->
+    <!-- Google Fonts: Inter (Modern & Clean) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -18,130 +18,136 @@
 
     <style>
         :root {
-            --primary-color: #007BFF;
-            --secondary-color: #0056b3;
-            --text-color: #333;
-            --light-text-color: #f8f9fa;
-            --bg-color: #f4f7f9;
-            --card-bg: rgba(255, 255, 255, 0.6);
+            --brand-color-start: #6a11cb;
+            --brand-color-end: #2575fc;
+            --brand-gradient: linear-gradient(135deg, var(--brand-color-start), var(--brand-color-end));
+            --text-dark: #1a202c;
+            --text-light: #4a5568;
+            --bg-light: #f7fafc;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
-        /* --- Basic Reset & Global Styles --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        /* --- Global Styles --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            background-color: #fff;
+            color: var(--text-dark);
             overflow-x: hidden;
         }
+
+        /* --- Header & Navigation --- */
+        .site-header {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover { opacity: 0.8; }
 
         /* --- Hero Section --- */
         .hero {
             position: relative;
-            height: 100vh;
+            height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
-            overflow: hidden;
+            background: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
         }
-
-        #bg-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translateX(-50%) translateY(-50%);
-            z-index: -2;
-        }
-
         .hero::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: -1;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
         }
-
         .hero-content {
             z-index: 1;
+            max-width: 800px;
         }
-
         .hero-content h1 {
-            font-size: 4.5rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            margin-bottom: 1rem;
         }
-
-        .hero-content p {
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-bottom: 2rem;
-        }
-
-        .hero-content .cta-button {
+        .typing-cursor {
             display: inline-block;
-            padding: 15px 35px;
-            background: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+            width: 3px;
+            height: 3.5rem;
+            background-color: white;
+            animation: blink 1s infinite;
         }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        .hero-content .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.6);
-            background: var(--secondary-color);
-        }
-
-        /* --- Main Content Section --- */
+        /* --- Main Content --- */
         .main-content {
-            padding: 60px 20px;
+            background: var(--bg-light);
+            padding: 100px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 50px;
         }
 
-        /* --- Glassmorphism Search Portal --- */
+        /* --- Why Us Section --- */
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 100px auto;
+        }
+        .why-us-card {
+            text-align: center;
+            padding: 30px;
+        }
+        .why-us-card i {
+            font-size: 3rem;
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        .why-us-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .why-us-card p { color: var(--text-light); }
+
+        /* --- Search Portal --- */
         .search-portal {
             max-width: 1200px;
-            margin: -100px auto 0 auto;
-            position: relative;
-            z-index: 10;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            margin: 0 auto;
+            background: white;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow);
         }
-
-        /* --- Tab Navigation --- */
         .tab-nav {
             display: flex;
             flex-wrap: wrap;
             padding: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid #e2e8f0;
         }
-
         .tab-nav-button {
             flex-grow: 1;
             padding: 15px 10px;
@@ -150,161 +156,183 @@
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
-            color: #222;
+            color: var(--text-light);
             transition: all 0.3s ease;
             border-radius: 12px;
         }
-
         .tab-nav-button i { margin-right: 10px; }
         .tab-nav-button.active {
-            background: var(--primary-color);
+            background: var(--brand-gradient);
             color: white;
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
-        /* --- Tab Content --- */
         .tab-content-container { padding: 30px; }
         .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
+        .tab-content.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         .widget-card {
-            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #e2e8f0;
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 25px;
         }
-        .widget-card h3 {
-            font-size: 1.5em;
-            margin: 0 0 20px 0;
-            color: var(--text-color);
+        .widget-card h3 { font-size: 1.5em; margin-bottom: 20px; }
+
+        /* --- Destinations Section --- */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        
+        .dest-card {
+            position: relative;
+            height: 350px;
+            border-radius: 15px;
+            overflow: hidden;
+            color: white;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.4s ease;
+        }
+        .dest-card:hover { transform: translateY(-10px); }
+        .dest-card img { width: 100%; height: 100%; object-fit: cover; }
+        .dest-card .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+        .dest-card .dest-name {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
         /* --- Footer --- */
         .site-footer {
-            background: #222;
-            color: #aaa;
-            padding: 40px 20px;
-            text-align: center;
+            background: var(--text-dark);
+            color: #a0aec0;
+            padding: 60px 20px;
         }
-        .social-links a {
-            color: white;
-            margin: 0 15px;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .social-links a:hover { color: var(--primary-color); }
-        .footer-text { margin-top: 20px; }
+        .footer-col h4 { color: white; margin-bottom: 15px; }
+        .footer-col a { display: block; color: #a0aec0; text-decoration: none; margin-bottom: 10px; transition: color 0.3s; }
+        .footer-col a:hover { color: white; }
+        .footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #2d3748; }
 
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
+            .site-header { padding: 15px; }
+            .nav-links { display: none; } /* Simple hiding for mobile, can be improved with a menu button */
+            .hero { height: 60vh; }
             .hero-content h1 { font-size: 2.5rem; }
-            .hero-content p { font-size: 1.2rem; }
-            .search-portal { margin: -50px 10px 0 10px; }
-            .tab-nav-button { min-width: 100px; font-size: 0.9rem; }
+            .typing-cursor { height: 2.5rem; }
         }
+
     </style>
 </head>
 <body>
 
-    <!-- Hero Section with Video Background -->
+    <header class="site-header">
+        <a href="#" class="logo">Voyza</a>
+        <nav class="nav-links">
+            <a href="#destinations">Destinations</a>
+            <a href="#search-portal">Start Planning</a>
+            <a href="#">About Us</a>
+        </nav>
+    </header>
+
     <section class="hero">
-        <video autoplay loop muted playsinline id="bg-video">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-top-aerial-shot-of-seashore-with-rocks-1090-large.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
         <div class="hero-content" data-aos="fade-up">
-            <h1>Your Journey Begins Here</h1>
-            <p>Unforgettable experiences are just a click away.</p>
-            <a href="#search-portal" class="cta-button">Start Planning</a>
+            <h1><span id="typing-text"></span><span class="typing-cursor"></span></h1>
         </div>
     </section>
 
-    <!-- Main Content Section -->
     <main class="main-content">
-        <!-- Glassmorphism Search Portal -->
-        <div id="search-portal" class="search-portal" data-aos="fade-up" data-aos-delay="200">
-            <!-- Tab Navigation -->
-            <div class="tab-nav">
-                <button class="tab-nav-button active" onclick="showTab('tours')"><i class="fa-solid fa-person-hiking"></i> Tours</button>
-                <button class="tab-nav-button" onclick="showTab('hotels')"><i class="fa-solid fa-bed"></i> Hotels</button>
-                <button class="tab-nav-button" onclick="showTab('flights')"><i class="fa-solid fa-plane-up"></i> Flights</button>
-                <button class="tab-nav-button" onclick="showTab('cars')"><i class="fa-solid fa-car"></i> Cars</button>
-                <button class="tab-nav-button" onclick="showTab('transfers')"><i class="fa-solid fa-taxi"></i> Transfers</button>
+        <section id="why-us" class="why-us-section">
+            <div class="why-us-grid">
+                <div class="why-us-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fa-solid fa-earth-americas"></i>
+                    <h3>Global Destinations</h3>
+                    <p>Explore thousands of unique destinations worldwide.</p>
+                </div>
+                <div class="why-us-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fa-solid fa-tags"></i>
+                    <h3>Best Price Guarantee</h3>
+                    <p>We ensure you get the best value for your money.</p>
+                </div>
+                <div class="why-us-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>Trusted & Secure</h3>
+                    <p>Your bookings and payments are always secure with us.</p>
+                </div>
             </div>
+        </section>
 
-            <!-- Tab Content -->
-            <div class="tab-content-container">
-                <!-- Tours & Activities Tab -->
-                <div id="tours" class="tab-content active">
-                    <div class="widget-card">
-                        <h3>Popular Tours</h3>
-                        <script async src="https://tpscr.com/content?currency=USD&trs=505302&shmarker=708717&language=en&locale=en&layout=horizontal&cards=4&powered_by=true&campaign_id=89&promo_id=3947" charset="utf-8"></script>
-                    </div>
-                     <div class="widget-card">
-                        <h3>Find a Specific Tour</h3>
-                        <script async src="https://tpscr.com/content?currency=USD&trs=505302&shmarker=708717&product=&language=en&layout=horizontal&powered_by=true&campaign_id=89&promo_id=3948" charset="utf-8"></script>
-                    </div>
-                     <div class="widget-card">
-                        <h3>Check Tour Availability</h3>
-                        <script async src="https://tpscr.com/content?currency=USD&trs=505302&shmarker=708717&product%5B0%5D%5Bkey%5D=&product%5B0%5D%5Bvalue%5D=&language=en&layout=horizontal&orientation=vertical&powered_by=true&campaign_id=89&promo_id=3984" charset="utf-8"></script>
-                    </div>
+        <section id="search-portal" class="search-portal-section">
+             <h2 class="section-title" data-aos="fade-up">Plan Your Perfect Trip</h2>
+            <div class="search-portal" data-aos="fade-up" data-aos-delay="200">
+                <div class="tab-nav">
+                    <button class="tab-nav-button active" onclick="showTab('tours')"><i class="fa-solid fa-person-hiking"></i> Tours</button>
+                    <button class="tab-nav-button" onclick="showTab('hotels')"><i class="fa-solid fa-bed"></i> Hotels</button>
+                    <button class="tab-nav-button" onclick="showTab('flights')"><i class="fa-solid fa-plane-up"></i> Flights</button>
+                    <button class="tab-nav-button" onclick="showTab('cars')"><i class="fa-solid fa-car"></i> Cars</button>
+                    <button class="tab-nav-button" onclick="showTab('transfers')"><i class="fa-solid fa-taxi"></i> Transfers</button>
                 </div>
-
-                <!-- Hotels & Stays Tab -->
-                <div id="hotels" class="tab-content">
-                     <div class="widget-card">
-                        <h3>Find the Perfect Stay (Booking.com)</h3>
-                        <!-- PASTE Booking.com WIDGET HERE -->
+                <div class="tab-content-container">
+                    <!-- Your Travelpayouts Widgets Go Here -->
+                    <div id="tours" class="tab-content active">
+                        <div class="widget-card"><h3>Popular Tours</h3><script async src="https://tpscr.com/content?currency=USD&trs=505302&shmarker=708717&language=en&locale=en&layout=horizontal&cards=4&powered_by=true&campaign_id=89&promo_id=3947" charset="utf-8"></script></div>
                     </div>
-                </div>
-
-                <!-- Flights Tab -->
-                <div id="flights" class="tab-content">
-                    <div class="widget-card">
-                        <h3>Search for Flights (Trip.com)</h3>
-                        <!-- PASTE Trip.com Flights WIDGET HERE -->
+                    <div id="hotels" class="tab-content">
+                        <div class="widget-card"><h3>Find the Perfect Stay</h3><!-- PASTE Booking.com WIDGET HERE --></div>
                     </div>
-                </div>
-
-                <!-- Car Rentals Tab -->
-                <div id="cars" class="tab-content">
-                    <div class="widget-card">
-                        <h3>Rent a Car (DiscoverCars)</h3>
-                        <script async src="https://tpscr.com/content?trs=505302&shmarker=708717&powered_by=true&country=153&lang=en&width=100&background=light&logo=true&header=true&gearbox=false&cars=false&border=true&footer=true&campaign_id=87&promo_id=4322" charset="utf-8"></script>
+                    <div id="flights" class="tab-content">
+                         <div class="widget-card"><h3>Search for Flights</h3><!-- PASTE Trip.com Flights WIDGET HERE --></div>
                     </div>
-                </div>
-
-                <!-- Transfers Tab -->
-                <div id="transfers" class="tab-content">
-                    <div class="widget-card">
-                        <h3>Airport Transfers (Welcome Pickups)</h3>
-                        <script async src="https://tpscr.com/content?trs=505302&shmarker=708717&locale=en&show_header=true&powered_by=true&campaign_id=627&promo_id=8951" charset="utf-8"></script>
+                    <div id="cars" class="tab-content">
+                        <div class="widget-card"><h3>Rent a Car</h3><script async src="https://tpscr.com/content?trs=505302&shmarker=708717&powered_by=true&country=153&lang=en&width=100&background=light&logo=true&header=true&gearbox=false&cars=false&border=true&footer=true&campaign_id=87&promo_id=4322" charset="utf-8"></script></div>
+                    </div>
+                    <div id="transfers" class="tab-content">
+                        <div class="widget-card"><h3>Airport Transfers</h3><script async src="https://tpscr.com/content?trs=505302&shmarker=708717&locale=en&show_header=true&powered_by=true&campaign_id=627&promo_id=8951" charset="utf-8"></script></div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <section id="destinations" class="destinations-section" style="margin-top: 100px;">
+            <h2 class="section-title" data-aos="fade-up">Get Inspired</h2>
+            <div class="destinations-grid">
+                <div class="dest-card" data-aos="fade-up" data-aos-delay="100"><img src="https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=2070&auto=format&fit=crop" alt="Kyoto"><div class="overlay"></div><span class="dest-name">Kyoto</span></div>
+                <div class="dest-card" data-aos="fade-up" data-aos-delay="200"><img src="https://images.unsplash.com/photo-1502602898657-3e91760c0341?q=80&w=2070&auto=format&fit=crop" alt="Paris"><div class="overlay"></div><span class="dest-name">Paris</span></div>
+                <div class="dest-card" data-aos="fade-up" data-aos-delay="300"><img src="https://images.unsplash.com/photo-1518548450227-205c29807851?q=80&w=1974&auto=format&fit=crop" alt="Bali"><div class="overlay"></div><span class="dest-name">Bali</span></div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Footer -->
     <footer class="site-footer">
-        <div class="social-links">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <div class="footer-grid">
+            <div class="footer-col"><h4>Voyza</h4><p style="color: #a0aec0; font-size: 0.9rem;">Your world, reimagined. We bring you the best travel deals from trusted partners worldwide.</p></div>
+            <div class="footer-col"><h4>Quick Links</h4><a href="#">Home</a><a href="#destinations">Destinations</a><a href="#search-portal">Book Now</a></div>
+            <div class="footer-col"><h4>Follow Us</h4><a href="#">Facebook</a><a href="#">Instagram</a><a href="#">Twitter</a></div>
         </div>
-        <p class="footer-text">© 2026 Travel Point. All Rights Reserved.</p>
+        <div class="footer-bottom"><p>© 2026 Voyza. All Rights Reserved.</p></div>
     </footer>
 
-    <!-- JavaScript for Tabs & Animations -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // Initialize AOS (Animate on Scroll)
-        AOS.init({
-            duration: 800,
-            once: true
-        });
+        AOS.init({ duration: 800, once: true, offset: 50 });
 
-        // Tab Switching Logic
         function showTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-nav-button').forEach(btn => btn.classList.remove('active'));
@@ -312,9 +340,37 @@
             document.querySelector(`.tab-nav-button[onclick="showTab('${tabId}')"]`).classList.add('active');
         }
 
-        // Set the first tab as active on page load
-        document.addEventListener('DOMContentLoaded', () => showTab('tours'));
-    </script>
+        // Typing animation logic
+        const typingTextElement = document.getElementById('typing-text');
+        const words = ["Discover Your Next Adventure.", "Book Your Dream Vacation.", "Explore the World with Voyza."];
+        let wordIndex = 0;
+        let charIndex = 0;
 
+        function type() {
+            if (charIndex < words[wordIndex].length) {
+                typingTextElement.textContent += words[wordIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 100);
+            } else {
+                setTimeout(erase, 2000);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typingTextElement.textContent = words[wordIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, 50);
+            } else {
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(type, 500);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showTab('tours');
+            setTimeout(type, 500);
+        });
+    </script>
 </body>
 </html>
