@@ -16,7 +16,6 @@
             --brand-color-start: #6a11cb;
             --brand-color-end: #2575fc;
             --brand-gradient: linear-gradient(135deg, var(--brand-color-start), var(--brand-color-end));
-            --accent-color: #ff9f1c; /* A bright accent color for deals */
 
             /* Light Mode Variables */
             --bg-primary: #ffffff;
@@ -25,7 +24,7 @@
             --text-light: #4a5568;
             --border-color: #e2e8f0;
             --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.07), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --input-bg: #f7fafc;
+            --input-bg: #edf2f7;
         }
 
         body.dark-mode {
@@ -46,109 +45,181 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-dark);
-            line-height: 1.6;
             overflow-x: hidden;
             transition: background-color 0.3s, color 0.3s;
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .btn {
-            display: inline-block; padding: 12px 30px; background: var(--brand-gradient);
-            color: white; text-decoration: none; font-weight: 600; border-radius: 50px;
-            transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
 
-        /* --- Header, Hero & Preloader (Mostly unchanged) --- */
-        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a202c; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease-out; }
-        .spinner { width: 50px; height: 50px; border: 5px solid #4a5568; border-top: 5px solid var(--brand-color-end); border-radius: 50%; animation: spin 1s linear infinite; }
+        /* --- Preloader --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a202c;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease-out;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #4a5568;
+            border-top: 5px solid var(--brand-color-end);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         #preloader.preloader-hidden { opacity: 0; pointer-events: none; }
-        .site-header { position: absolute; width: 100%; top: 0; left: 0; z-index: 100; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+
+        /* --- Header & Navigation --- */
+        .site-header {
+            position: absolute;
+            width: 100%;
+            top: 0; left: 0;
+            z-index: 100;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
         .logo { font-size: 1.8rem; font-weight: 800; color: white; text-decoration: none; }
         .nav-container { display: flex; align-items: center; gap: 30px; }
         .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; }
-        .dark-mode-toggle { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; }
-        .hero { position: relative; height: 95vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; background: url('https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') no-repeat center center/cover; }
+        .nav-links a:hover { opacity: 0.8; }
+        .dark-mode-toggle {
+            background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: url('https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') no-repeat center center/cover;
+        }
         .hero::after { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); }
         .hero-content { z-index: 1; max-width: 800px; padding: 20px; }
         .hero-content h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; }
-
-        /* --- Main Content & Section Styling --- */
-        main { padding: 100px 0; }
-        .section-title { text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
-        .section-subtitle { text-align: center; font-size: 1.1rem; color: var(--text-light); max-width: 600px; margin: 0 auto 60px auto; }
-        
-        /* --- Search Portal - REVAMPED --- */
-        .search-portal-section { margin-top: -80px; position: relative; z-index: 10; }
-        .search-portal {
-            background: var(--bg-primary); border-radius: 20px;
-            box-shadow: var(--card-shadow); overflow: hidden;
+        .typing-cursor { display: inline-block; width: 3px; height: 3.5rem; background-color: white; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        .hero-cta-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 15px 35px;
+            background: var(--brand-gradient);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
-        .tab-nav { display: flex; flex-wrap: wrap; padding: 10px; background: var(--bg-secondary); }
-        .tab-nav-button { flex-grow: 1; padding: 15px 10px; border: none; background: none; cursor: pointer; font-size: 1rem; font-weight: 600; color: var(--text-light); transition: all 0.3s ease; border-radius: 12px; }
+        .hero-cta-button:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); }
+
+        /* --- Main Content --- */
+        .main-content {
+            background: var(--bg-secondary);
+            padding: 100px 20px;
+        }
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 50px; }
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 100px auto;
+        }
+        .why-us-card { text-align: center; padding: 30px; }
+        .why-us-card i {
+            font-size: 3rem;
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        .why-us-card:hover i { transform: scale(1.1); }
+        .why-us-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .why-us-card p { color: var(--text-light); }
+
+        /* --- Search Portal --- */
+        .search-portal {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+        .tab-nav { display: flex; flex-wrap: wrap; padding: 10px; border-bottom: 1px solid var(--border-color); }
+        .tab-nav-button {
+            flex-grow: 1; padding: 15px 10px; border: none; background: none; cursor: pointer;
+            font-size: 1rem; font-weight: 600; color: var(--text-light); transition: all 0.3s ease; border-radius: 12px;
+        }
+        .tab-nav-button i { margin-right: 10px; }
         .tab-nav-button.active { background: var(--brand-gradient); color: white; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
         .tab-content-container { padding: 30px; }
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- Advanced Form Styles --- */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* --- Form Styles --- */
         .search-form { display: grid; gap: 20px; }
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; align-items: flex-end; }
-        .form-field { position: relative; display: flex; flex-direction: column; }
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; align-items: end; }
+        .form-field { display: flex; flex-direction: column; }
         .form-field label { font-size: 0.9em; font-weight: 500; margin-bottom: 8px; color: var(--text-light); }
-        .form-field input, .form-field select { width: 100%; padding: 12px 12px 12px 40px; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--input-bg); color: var(--text-dark); font-size: 1rem; }
-        .form-field .field-icon { position: absolute; left: 15px; top: 43px; color: var(--text-light); }
-        .search-button { grid-column: -1; padding: 15px; font-size: 1.1rem; width: 100%; }
-        
-        /* Passenger Selector */
-        #passenger-input { cursor: pointer; }
-        .passenger-popup { display: none; position: absolute; top: 105%; left: 0; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; box-shadow: var(--card-shadow); padding: 15px; z-index: 20; width: 280px; }
-        .passenger-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .passenger-counter { display: flex; align-items: center; gap: 10px; }
-        .counter-btn { width: 30px; height: 30px; border: 1px solid var(--border-color); background: var(--bg-secondary); border-radius: 50%; cursor: pointer; }
-        
-        /* --- Deals Section --- */
-        .deals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .deal-card { background: var(--bg-primary); border-radius: 15px; overflow: hidden; box-shadow: var(--card-shadow); transition: all 0.4s ease; }
-        .deal-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px -5px rgba(0,0,0,0.15); }
-        .deal-card-img { position: relative; height: 200px; }
-        .deal-card-img img { width: 100%; height: 100%; object-fit: cover; }
-        .deal-tag { position: absolute; top: 15px; left: 15px; background: var(--accent-color); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: 600; }
-        .deal-card-content { padding: 20px; }
-        .deal-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
-        .deal-price { font-size: 1.5rem; font-weight: 700; color: var(--brand-color-end); margin-top: 15px; }
-        .deal-price small { font-size: 0.9rem; color: var(--text-light); text-decoration: line-through; margin-left: 5px; }
+        .form-field input, .form-field select {
+            width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px;
+            background-color: var(--input-bg); color: var(--text-dark); font-size: 1rem;
+        }
+        .form-options { display: flex; gap: 15px; margin-bottom: 15px; }
+        .form-options label { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+        .search-button {
+            padding: 15px; background: var(--brand-gradient); color: white; font-size: 1.1rem;
+            font-weight: 600; border: none; border-radius: 10px; cursor: pointer;
+            transition: all 0.3s ease; justify-self: end; grid-column: -1;
+        }
+        .search-button:hover { transform: scale(1.05); }
 
-        /* --- Top Destinations Section --- */
-        .dest-categories { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 40px; }
-        .dest-category-btn { padding: 10px 20px; border: 1px solid var(--border-color); background: none; color: var(--text-dark); border-radius: 50px; cursor: pointer; transition: all 0.3s ease; }
-        .dest-category-btn.active { background: var(--brand-gradient); color: white; border-color: transparent; }
-        .destinations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .dest-card { /* Your existing dest-card styles */ }
-        
-        /* --- Testimonials Section --- */
-        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .testimonial-card { background: var(--bg-primary); padding: 30px; border-radius: 15px; box-shadow: var(--card-shadow); }
-        .testimonial-author { display: flex; align-items: center; margin-top: 20px; }
-        .testimonial-author img { width: 50px; height: 50px; border-radius: 50%; margin-right: 15px; }
+        /* --- Destinations Section --- */
+        .destinations-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; max-width: 1200px; margin: 0 auto;
+        }
+        .dest-card {
+            position: relative; height: 350px; border-radius: 15px; overflow: hidden;
+            color: white; box-shadow: var(--card-shadow); transition: transform 0.4s ease;
+        }
+        .dest-card:hover { transform: translateY(-10px); }
+        .dest-card img { width: 100%; height: 100%; object-fit: cover; }
+        .dest-card .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); }
+        .dest-card .dest-name { position: absolute; bottom: 20px; left: 20px; font-size: 1.5rem; font-weight: 700; }
 
-        /* --- Blog Section --- */
-        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .blog-post-card { /* Similar to deal-card */ }
-        .blog-post-card .category { color: var(--brand-color-start); font-weight: 600; }
-        
-        /* --- CTA Section --- */
-        .cta-section { background: var(--brand-gradient); color: white; padding: 60px 20px; border-radius: 20px; text-align: center; }
-        .cta-section h2 { font-size: 2rem; }
-        .cta-form { margin-top: 20px; display: flex; justify-content: center; gap: 10px; }
-        .cta-form input { padding: 15px; border-radius: 50px; border: none; min-width: 300px; }
-        .cta-form button { background: var(--accent-color); }
-        
         /* --- Footer --- */
-        .site-footer { background: var(--text-dark); color: #a0aec0; padding: 60px 20px; margin-top: 100px; }
-        /* Your existing footer styles */
+        .site-footer { background: var(--text-dark); color: #a0aec0; padding: 60px 20px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h4 { color: white; margin-bottom: 15px; }
+        .footer-col a { display: block; color: #a0aec0; text-decoration: none; margin-bottom: 10px; transition: color 0.3s; }
+        .footer-col a:hover { color: white; }
+        .footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #4a5568; }
 
+        @media (max-width: 768px) {
+            .site-header { padding: 15px 20px; }
+            .nav-links { display: none; }
+            .hero { height: 70vh; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .typing-cursor { height: 2.5rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .search-button { grid-column: 1 / -1; }
+        }
     </style>
 </head>
 <body>
@@ -156,195 +227,233 @@
     <div id="preloader"><div class="spinner"></div></div>
 
     <header class="site-header">
-        <!-- ... Header content (logo, nav) ... -->
+        <a href="#" class="logo">Voyza</a>
+        <div class="nav-container">
+            <nav class="nav-links">
+                <a href="#destinations">Destinations</a>
+                <a href="#search-portal">Start Planning</a>
+            </nav>
+            <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+        </div>
     </header>
 
     <section class="hero">
         <div class="hero-content" data-aos="fade-up">
-            <h1><span id="typing-text"></span></h1>
-            <p style="font-size: 1.2rem; margin-top: 1rem;">Unbeatable Deals for Hotels, Flights, and More.</p>
+            <h1><span id="typing-text"></span><span class="typing-cursor"></span></h1>
+            <a href="#search-portal" class="hero-cta-button">Book Now <i class="fa-solid fa-arrow-down"></i></a>
         </div>
     </section>
 
-    <div class="search-portal-section container">
-        <div class="search-portal" data-aos="fade-up" data-aos-delay="200">
-            <div class="tab-nav">
-                <button class="tab-nav-button active" onclick="showTab('flights')"><i class="fa-solid fa-plane-up"></i> Flights</button>
-                <button class="tab-nav-button" onclick="showTab('hotels')"><i class="fa-solid fa-bed"></i> Hotels</button>
-            </div>
-            <div class="tab-content-container">
-                <div id="flights" class="tab-content active">
-                    <form class="search-form">
-                        <div class="form-row">
-                            <div class="form-field"><label>From</label><i class="fa-solid fa-plane-departure field-icon"></i><input type="text" placeholder="Departure City"></div>
-                            <div class="form-field"><label>To</label><i class="fa-solid fa-plane-arrival field-icon"></i><input type="text" placeholder="Destination City"></div>
-                            <div class="form-field"><label>Depart</label><i class="fa-solid fa-calendar-day field-icon"></i><input type="date"></div>
-                            <div class="form-field"><label>Return</label><i class="fa-solid fa-calendar-day field-icon"></i><input type="date"></div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-field">
-                                <label>Passengers</label>
-                                <i class="fa-solid fa-user-group field-icon"></i>
-                                <input type="text" id="passenger-input" placeholder="1 Adult" readonly>
-                                <div class="passenger-popup">
-                                    <div class="passenger-row">
-                                        <div><strong>Adults</strong><br><small>&gt; 12 years</small></div>
-                                        <div class="passenger-counter"><button type="button" class="counter-btn" onclick="updatePassengerCount('adults', -1)">-</button><span id="adults-count">1</span><button type="button" class="counter-btn" onclick="updatePassengerCount('adults', 1)">+</button></div>
-                                    </div>
-                                    <div class="passenger-row">
-                                        <div><strong>Children</strong><br><small>2-12 years</small></div>
-                                        <div class="passenger-counter"><button type="button" class="counter-btn" onclick="updatePassengerCount('children', -1)">-</button><span id="children-count">0</span><button type="button" class="counter-btn" onclick="updatePassengerCount('children', 1)">+</button></div>
-                                    </div>
-                                    <div class="passenger-row">
-                                        <div><strong>Infants</strong><br><small>&lt; 2 years</small></div>
-                                        <div class="passenger-counter"><button type="button" class="counter-btn" onclick="updatePassengerCount('infants', -1)">-</button><span id="infants-count">0</span><button type="button" class="counter-btn" onclick="updatePassengerCount('infants', 1)">+</button></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-field">
-                                <label>Add to your trip</label>
-                                <div style="padding-top: 10px;">
-                                    <label style="font-size: 0.9rem; margin-right: 15px;"><input type="checkbox"> Add a hotel</label>
-                                    <label style="font-size: 0.9rem;"><input type="checkbox"> Add a car</label>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn search-button"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
-                        </div>
-                    </form>
-                </div>
-                <div id="hotels" class="tab-content">
-                    <!-- Hotel search form will go here -->
-                     <p>Hotel search widget will be placed here.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <main>
-        <!-- Deals & Offers Section -->
-        <section class="container" data-aos="fade-up">
-            <h2 class="section-title">Limited Time Deals</h2>
-            <p class="section-subtitle">Grab these amazing offers before they're gone! Unbeatable prices for your dream vacation.</p>
-            <div class="deals-grid">
-                <!-- Deal Card Example -->
-                <div class="deal-card">
-                    <div class="deal-card-img"><img src="https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg" alt="Maldives"><div class="deal-tag">30% OFF</div></div>
-                    <div class="deal-card-content">
-                        <h3>Overwater Bungalow in Maldives</h3>
-                        <p class="text-light">5 Nights, All-Inclusive</p>
-                        <div class="deal-price">$2,499 <small>$3,500</small></div>
-                    </div>
-                </div>
-                <!-- More deal cards... -->
+    <main class="main-content">
+        <section class="why-us-section">
+            <div class="why-us-grid">
+                <div class="why-us-card" data-aos="fade-up" data-aos-delay="100"><i class="fa-solid fa-earth-americas"></i><h3>Global Destinations</h3><p>Explore thousands of unique destinations worldwide.</p></div>
+                <div class="why-us-card" data-aos="fade-up" data-aos-delay="200"><i class="fa-solid fa-tags"></i><h3>Best Price Guarantee</h3><p>We ensure you get the best value for your money.</p></div>
+                <div class="why-us-card" data-aos="fade-up" data-aos-delay="300"><i class="fa-solid fa-shield-halved"></i><h3>Trusted & Secure</h3><p>Your bookings and payments are always secure with us.</p></div>
             </div>
         </section>
 
-        <!-- Top Destinations Section -->
-        <section class="container" style="margin-top: 100px;" data-aos="fade-up">
-            <h2 class="section-title">Top Destinations</h2>
-            <p class="section-subtitle">Explore our most popular destinations, curated for every type of traveler.</p>
-            <div class="dest-categories">
-                <button class="dest-category-btn active">All</button>
-                <button class="dest-category-btn">Beaches</button>
-                <button class="dest-category-btn">Mountains</button>
-                <button class="dest-category-btn">Cities</button>
+        <section id="search-portal" class="search-portal-section">
+            <h2 class="section-title" data-aos="fade-up">Plan Your Perfect Trip</h2>
+            <div class="search-portal" data-aos="fade-up" data-aos-delay="200">
+                <div class="tab-nav">
+                    <button class="tab-nav-button active" onclick="showTab('flights')"><i class="fa-solid fa-plane-up"></i> Flights</button>
+                    <button class="tab-nav-button" onclick="showTab('hotels')"><i class="fa-solid fa-bed"></i> Hotels</button>
+                    <button class="tab-nav-button" onclick="showTab('cars')"><i class="fa-solid fa-car"></i> Cars</button>
+                    <button class="tab-nav-button" onclick="showTab('tours')"><i class="fa-solid fa-person-hiking"></i> Tours</button>
+                    <button class="tab-nav-button" onclick="showTab('cruises')"><i class="fa-solid fa-ship"></i> Cruises</button>
+                    <button class="tab-nav-button" onclick="showTab('packages')"><i class="fa-solid fa-box-archive"></i> Packages</button>
+                    <button class="tab-nav-button" onclick="showTab('insurance')"><i class="fa-solid fa-file-medical"></i> Insurance</button>
+                </div>
+
+                <div class="tab-content-container">
+                    <!-- Flights Tab -->
+                    <div id="flights" class="tab-content active">
+                        <form class="search-form">
+                            <div class="form-options">
+                                <label><input type="radio" name="flight-type" value="round-trip" checked> Round-trip</label>
+                                <label><input type="radio" name="flight-type" value="one-way"> One-way</label>
+                                <label><input type="radio" name="flight-type" value="multi-city"> Multi-city</label>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field"><label for="from">From</label><input type="text" id="from" placeholder="City or Airport"></div>
+                                <div class="form-field"><label for="to">To</label><input type="text" id="to" placeholder="City or Airport"></div>
+                                <div class="form-field"><label for="depart">Depart</label><input type="date" id="depart"></div>
+                                <div class="form-field"><label for="return">Return</label><input type="date" id="return"></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field"><label for="adults">Adults</label><select id="adults"><option value="1">1</option><option value="2">2</option></select></div>
+                                <div class="form-field"><label for="children">Children</label><select id="children"><option value="0">0</option><option value="1">1</option></select></div>
+                                <div class="form-field"><label for="cabin">Cabin Class</label><select id="cabin"><option>Economy</option><option>Business</option><option>First</option></select></div>
+                                <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Search Flights</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Hotels Tab -->
+                    <div id="hotels" class="tab-content">
+                        <form class="search-form">
+                            <div class="form-row">
+                                <div class="form-field"><label for="destination">Destination</label><input type="text" id="destination" placeholder="City, hotel, or landmark"></div>
+                                <div class="form-field"><label for="checkin">Check-in</label><input type="date" id="checkin"></div>
+                                <div class="form-field"><label for="checkout">Check-out</label><input type="date" id="checkout"></div>
+                                <div class="form-field"><label for="guests">Guests</label><select id="guests"><option>1 guest</option><option>2 guests</option></select></div>
+                            </div>
+                            <div class="form-row">
+                                <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Search Hotels</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Cars Tab -->
+                    <div id="cars" class="tab-content">
+                        <form class="search-form">
+                            <div class="form-row">
+                                <div class="form-field"><label for="pickup-loc">Pick-up location</label><input type="text" id="pickup-loc" placeholder="City or airport"></div>
+                                <div class="form-field"><label for="pickup-date">Pick-up date</label><input type="date" id="pickup-date"></div>
+                                <div class="form-field"><label for="pickup-time">Time</label><input type="time" id="pickup-time"></div>
+                            </div>
+                             <div class="form-row">
+                                <div class="form-field"><label for="dropoff-loc">Drop-off location</label><input type="text" id="dropoff-loc" placeholder="City or airport"></div>
+                                <div class="form-field"><label for="dropoff-date">Drop-off date</label><input type="date" id="dropoff-date"></div>
+                                <div class="form-field"><label for="dropoff-time">Time</label><input type="time" id="dropoff-time"></div>
+                            </div>
+                            <div class="form-options"><label><input type="checkbox"> Drop car off at a different location</label></div>
+                            <div class="form-row">
+                                <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Search Cars</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Tours Tab -->
+                    <div id="tours" class="tab-content">
+                        <!-- PASTE YOUR Travelpayouts TOURS WIDGET SCRIPT HERE -->
+                        <h3>Popular Tours</h3>
+                        <p>Your tours widget will be displayed here.</p>
+                    </div>
+
+                    <!-- Cruises Tab -->
+                    <div id="cruises" class="tab-content">
+                        <form class="search-form">
+                             <div class="form-row">
+                                <div class="form-field"><label for="cruise-dest">Destination</label><input type="text" id="cruise-dest" placeholder="Any destination"></div>
+                                <div class="form-field"><label for="cruise-line">Cruise Line</label><input type="text" id="cruise-line" placeholder="Any cruise line"></div>
+                                <div class="form-field"><label for="cruise-date">Departure Date</label><input type="month" id="cruise-date"></div>
+                            </div>
+                             <div class="form-row">
+                                <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Search Cruises</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Packages Tab -->
+                    <div id="packages" class="tab-content">
+                        <form class="search-form">
+                             <div class="form-row">
+                                <div class="form-field"><label for="pkg-from">From</label><input type="text" id="pkg-from" placeholder="City or Airport"></div>
+                                <div class="form-field"><label for="pkg-to">To</label><input type="text" id="pkg-to" placeholder="Destination City"></div>
+                                <div class="form-field"><label for="pkg-depart">Depart</label><input type="date" id="pkg-depart"></div>
+                                <div class="form-field"><label for="pkg-return">Return</label><input type="date" id="pkg-return"></div>
+                            </div>
+                             <div class="form-row">
+                                <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Search Packages</button>
+                            </div>
+                        </form>
+                    </div>
+
+                     <!-- Insurance Tab -->
+                    <div id="insurance" class="tab-content">
+                        <form class="search-form">
+                             <div class="form-row">
+                                <div class="form-field"><label for="ins-dest">Destination</label><input type="text" id="ins-dest" placeholder="Country"></div>
+                                <div class="form-field"><label for="ins-start">Start Date</label><input type="date" id="ins-start"></div>
+                                <div class="form-field"><label for="ins-end">End Date</label><input type="date" id="ins-end"></div>
+                            </div>
+                             <div class="form-row">
+                                <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Get Quote</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
             </div>
+        </section>
+
+        <section id="destinations" class="destinations-section" style="margin-top: 100px;">
+            <h2 class="section-title" data-aos="fade-up">Get Inspired</h2>
             <div class="destinations-grid">
-                 <!-- Destination cards... -->
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section style="margin-top: 100px; background: var(--bg-secondary); padding: 80px 0;">
-            <div class="container" data-aos="fade-up">
-                <h2 class="section-title">What Our Travelers Say</h2>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <p>"Booking through Voyza was a breeze! The prices were fantastic and the whole process was seamless. Our family trip to Switzerland was a dream come true."</p>
-                        <div class="testimonial-author">
-                            <img src="https://i.pravatar.cc/150?img=11" alt="Author">
-                            <div><strong>Sarah L.</strong><br><small>Geneva, Switzerland</small></div>
-                        </div>
-                    </div>
-                     <!-- More testimonial cards... -->
-                </div>
-            </div>
-        </section>
-
-         <!-- CTA Section -->
-        <section class="container" style="margin-top: 100px;" data-aos="fade-up">
-            <div class="cta-section">
-                <h2>Join Our Newsletter</h2>
-                <p>Get exclusive deals, travel inspiration, and the latest news straight to your inbox.</p>
-                <form class="cta-form">
-                    <input type="email" placeholder="Enter your email address">
-                    <button type="submit" class="btn">Subscribe</button>
-                </form>
+                <div class="dest-card" data-aos="fade-up" data-aos-delay="100"><img src="https://images.pexels.com/photos/1658967/pexels-photo-1658967.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Kyoto"><div class="overlay"></div><span class="dest-name">Japan</span></div>
+                <div class="dest-card" data-aos="fade-up" data-aos-delay="200"><img src="https://images.pexels.com/photos/2161449/pexels-photo-2161449.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Paris"><div class="overlay"></div><span class="dest-name">Switzerland</span></div>
+                <div class="dest-card" data-aos="fade-up" data-aos-delay="300"><img src="https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Bali"><div class="overlay"></div><span class="dest-name">Maldives</span></div>
             </div>
         </section>
     </main>
-    
+
     <footer class="site-footer">
-        <!-- ... Footer content ... -->
+        <div class="footer-grid">
+            <div class="footer-col"><h4>Voyza</h4><p style="color: #a0aec0; font-size: 0.9rem;">Your world, reimagined. We bring you the best travel deals from trusted partners worldwide.</p></div>
+            <div class="footer-col"><h4>Quick Links</h4><a href="#">Home</a><a href="#destinations">Destinations</a><a href="#search-portal">Book Now</a></div>
+            <div class="footer-col"><h4>Follow Us</h4><a href="#">Facebook</a><a href="#">Instagram</a><a href="#">Twitter</a></div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 Voyza. All Rights Reserved.</p></div>
     </footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // --- Preloader & AOS ---
-        window.addEventListener('load', () => document.getElementById('preloader').classList.add('preloader-hidden'));
+        // --- Preloader Logic ---
+        const preloader = document.getElementById('preloader');
+        window.addEventListener('load', () => {
+            preloader.classList.add('preloader-hidden');
+        });
+
+        // --- AOS (Animate on Scroll) Initialization ---
         AOS.init({ duration: 800, once: true, offset: 50 });
 
-        // --- Tab Switching ---
-        function showTab(tabId) { /* ... same as before ... */ }
+        // --- Tab Switching Logic ---
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-nav-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab-nav-button[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
 
-        // --- Typing Animation ---
-        /* ... same as before ... */
+        // --- Typing Animation Logic ---
+        const typingTextElement = document.getElementById('typing-text');
+        const words = ["Discover Your Next Adventure.", "Book Your Dream Vacation.", "Explore the World with Voyza."];
+        let wordIndex = 0, charIndex = 0;
+        function type() { if (charIndex < words[wordIndex].length) { typingTextElement.textContent += words[wordIndex].charAt(charIndex++); setTimeout(type, 100); } else { setTimeout(erase, 2000); } }
+        function erase() { if (charIndex > 0) { typingTextElement.textContent = words[wordIndex].substring(0, --charIndex); setTimeout(erase, 50); } else { wordIndex = (wordIndex + 1) % words.length; setTimeout(type, 500); } }
 
-        // --- Dark Mode ---
-        /* ... same as before ... */
-
-        // --- NEW: Passenger Selector Logic ---
-        const passengerInput = document.getElementById('passenger-input');
-        const passengerPopup = document.querySelector('.passenger-popup');
+        // --- Dark Mode Logic ---
+        const toggleButton = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+        const toggleIcon = toggleButton.querySelector('i');
         
-        passengerInput.addEventListener('click', (event) => {
-            event.stopPropagation();
-            passengerPopup.style.display = 'block';
-        });
-
-        document.addEventListener('click', (event) => {
-            if (!passengerPopup.contains(event.target) && event.target !== passengerInput) {
-                passengerPopup.style.display = 'none';
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                toggleIcon.classList.remove('fa-moon');
+                toggleIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                toggleIcon.classList.remove('fa-sun');
+                toggleIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
             }
+        }
+
+        toggleButton.addEventListener('click', () => {
+            const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
+            applyTheme(newTheme);
         });
 
-        function updatePassengerCount(type, change) {
-            const countElement = document.getElementById(`${type}-count`);
-            let currentCount = parseInt(countElement.innerText);
-            let newCount = currentCount + change;
-
-            if (type === 'adults' && newCount < 1) newCount = 1;
-            if (type !== 'adults' && newCount < 0) newCount = 0;
-            
-            countElement.innerText = newCount;
-            updatePassengerInputText();
-        }
-
-        function updatePassengerInputText() {
-            const adults = document.getElementById('adults-count').innerText;
-            const children = document.getElementById('children-count').innerText;
-            const infants = document.getElementById('infants-count').innerText;
-            
-            let text = `${adults} Adult`;
-            if (children > 0) text += `, ${children} Children`;
-            if (infants > 0) text += `, ${infants} Infant`;
-            
-            passengerInput.value = text;
-        }
-
-        // Initialize on load
+        // --- On Page Load ---
         document.addEventListener('DOMContentLoaded', () => {
-             updatePassengerInputText();
+            showTab('flights'); // Default tab is now flights
+            setTimeout(type, 500);
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(savedTheme);
         });
     </script>
 </body>
