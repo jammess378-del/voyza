@@ -16,7 +16,7 @@
             --brand-color-start: #6a11cb;
             --brand-color-end: #2575fc;
             --brand-gradient: linear-gradient(135deg, var(--brand-color-start), var(--brand-color-end));
-            
+
             /* Light Mode Variables */
             --bg-primary: #ffffff;
             --bg-secondary: #f7fafc;
@@ -24,8 +24,9 @@
             --text-light: #4a5568;
             --border-color: #e2e8f0;
             --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.07), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --input-bg: #edf2f7;
         }
-        
+
         body.dark-mode {
             /* Dark Mode Variables */
             --bg-primary: #1a202c;
@@ -34,6 +35,7 @@
             --text-light: #a0aec0;
             --border-color: #4a5568;
             --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            --input-bg: #4a5568;
         }
 
         /* --- Global Styles --- */
@@ -155,6 +157,7 @@
             background: var(--bg-primary);
             border-radius: 20px;
             box-shadow: var(--card-shadow);
+            overflow: hidden;
         }
         .tab-nav { display: flex; flex-wrap: wrap; padding: 10px; border-bottom: 1px solid var(--border-color); }
         .tab-nav-button {
@@ -167,10 +170,25 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.5s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .widget-card { border: 1px solid var(--border-color); border-radius: 15px; padding: 25px; margin-bottom: 25px; }
-        .widget-card h3 { font-size: 1.5em; margin-bottom: 20px; }
         
+        /* --- Form Styles --- */
+        .search-form { display: grid; gap: 20px; }
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; align-items: end; }
+        .form-field { display: flex; flex-direction: column; }
+        .form-field label { font-size: 0.9em; font-weight: 500; margin-bottom: 8px; color: var(--text-light); }
+        .form-field input, .form-field select {
+            width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px;
+            background-color: var(--input-bg); color: var(--text-dark); font-size: 1rem;
+        }
+        .form-options { display: flex; gap: 15px; margin-bottom: 15px; }
+        .form-options label { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+        .search-button {
+            padding: 15px; background: var(--brand-gradient); color: white; font-size: 1.1rem;
+            font-weight: 600; border: none; border-radius: 10px; cursor: pointer;
+            transition: all 0.3s ease; justify-self: end; grid-column: -1;
+        }
+        .search-button:hover { transform: scale(1.05); }
+
         /* --- Destinations Section --- */
         .destinations-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -199,6 +217,8 @@
             .hero { height: 70vh; }
             .hero-content h1 { font-size: 2.5rem; }
             .typing-cursor { height: 2.5rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .search-button { grid-column: 1 / -1; }
         }
     </style>
 </head>
@@ -237,18 +257,124 @@
             <h2 class="section-title" data-aos="fade-up">Plan Your Perfect Trip</h2>
             <div class="search-portal" data-aos="fade-up" data-aos-delay="200">
                 <div class="tab-nav">
-                    <button class="tab-nav-button active" onclick="showTab('tours')"><i class="fa-solid fa-person-hiking"></i> Tours</button>
+                    <button class="tab-nav-button active" onclick="showTab('flights')"><i class="fa-solid fa-plane-up"></i> Flights</button>
                     <button class="tab-nav-button" onclick="showTab('hotels')"><i class="fa-solid fa-bed"></i> Hotels</button>
-                    <button class="tab-nav-button" onclick="showTab('flights')"><i class="fa-solid fa-plane-up"></i> Flights</button>
                     <button class="tab-nav-button" onclick="showTab('cars')"><i class="fa-solid fa-car"></i> Cars</button>
-                    <button class="tab-nav-button" onclick="showTab('transfers')"><i class="fa-solid fa-taxi"></i> Transfers</button>
+                    <button class="tab-nav-button" onclick="showTab('tours')"><i class="fa-solid fa-person-hiking"></i> Tours</button>
+                    <button class="tab-nav-button" onclick="showTab('cruises')"><i class="fa-solid fa-ship"></i> Cruises</button>
+                    <button class="tab-nav-button" onclick="showTab('packages')"><i class="fa-solid fa-box-archive"></i> Packages</button>
+                    <button class="tab-nav-button" onclick="showTab('insurance')"><i class="fa-solid fa-file-medical"></i> Insurance</button>
                 </div>
+
                 <div class="tab-content-container">
-                    <div id="tours" class="tab-content active"><div class="widget-card"><h3>Popular Tours</h3><script async src="https://tpscr.com/content?currency=USD&trs=505302&shmarker=708717&language=en&locale=en&layout=horizontal&cards=4&powered_by=true&campaign_id=89&promo_id=3947" charset="utf-8"></script></div></div>
-                    <div id="hotels" class="tab-content"><div class="widget-card"><h3>Find the Perfect Stay</h3><!-- PASTE Booking.com WIDGET HERE --></div></div>
-                    <div id="flights" class="tab-content"><div class="widget-card"><h3>Search for Flights</h3><!-- PASTE Trip.com Flights WIDGET HERE --></div></div>
-                    <div id="cars" class="tab-content"><div class="widget-card"><h3>Rent a Car</h3><script async src="https://tpscr.com/content?trs=505302&shmarker=708717&powered_by=true&country=153&lang=en&width=100&background=light&logo=true&header=true&gearbox=false&cars=false&border=true&footer=true&campaign_id=87&promo_id=4322" charset="utf-8"></script></div></div>
-                    <div id="transfers" class="tab-content"><div class="widget-card"><h3>Airport Transfers</h3><script async src="https://tpscr.com/content?trs=505302&shmarker=708717&locale=en&show_header=true&powered_by=true&campaign_id=627&promo_id=8951" charset="utf-8"></script></div></div>
+                    <!-- Flights Tab -->
+                    <div id="flights" class="tab-content active">
+                        <form class="search-form">
+                            <div class="form-options">
+                                <label><input type="radio" name="flight-type" value="round-trip" checked> Round-trip</label>
+                                <label><input type="radio" name="flight-type" value="one-way"> One-way</label>
+                                <label><input type="radio" name="flight-type" value="multi-city"> Multi-city</label>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field"><label for="from">From</label><input type="text" id="from" placeholder="City or Airport"></div>
+                                <div class="form-field"><label for="to">To</label><input type="text" id="to" placeholder="City or Airport"></div>
+                                <div class="form-field"><label for="depart">Depart</label><input type="date" id="depart"></div>
+                                <div class="form-field"><label for="return">Return</label><input type="date" id="return"></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-field"><label for="adults">Adults</label><select id="adults"><option value="1">1</option><option value="2">2</option></select></div>
+                                <div class="form-field"><label for="children">Children</label><select id="children"><option value="0">0</option><option value="1">1</option></select></div>
+                                <div class="form-field"><label for="cabin">Cabin Class</label><select id="cabin"><option>Economy</option><option>Business</option><option>First</option></select></div>
+                                <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Search Flights</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Hotels Tab -->
+                    <div id="hotels" class="tab-content">
+                        <form class="search-form">
+                            <div class="form-row">
+                                <div class="form-field"><label for="destination">Destination</label><input type="text" id="destination" placeholder="City, hotel, or landmark"></div>
+                                <div class="form-field"><label for="checkin">Check-in</label><input type="date" id="checkin"></div>
+                                <div class="form-field"><label for="checkout">Check-out</label><input type="date" id="checkout"></div>
+                                <div class="form-field"><label for="guests">Guests</label><select id="guests"><option>1 guest</option><option>2 guests</option></select></div>
+                            </div>
+                            <div class="form-row">
+                                <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Search Hotels</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Cars Tab -->
+                    <div id="cars" class="tab-content">
+                        <form class="search-form">
+                            <div class="form-row">
+                                <div class="form-field"><label for="pickup-loc">Pick-up location</label><input type="text" id="pickup-loc" placeholder="City or airport"></div>
+                                <div class="form-field"><label for="pickup-date">Pick-up date</label><input type="date" id="pickup-date"></div>
+                                <div class="form-field"><label for="pickup-time">Time</label><input type="time" id="pickup-time"></div>
+                            </div>
+                             <div class="form-row">
+                                <div class="form-field"><label for="dropoff-loc">Drop-off location</label><input type="text" id="dropoff-loc" placeholder="City or airport"></div>
+                                <div class="form-field"><label for="dropoff-date">Drop-off date</label><input type="date" id="dropoff-date"></div>
+                                <div class="form-field"><label for="dropoff-time">Time</label><input type="time" id="dropoff-time"></div>
+                            </div>
+                            <div class="form-options"><label><input type="checkbox"> Drop car off at a different location</label></div>
+                            <div class="form-row">
+                                <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Search Cars</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Tours Tab -->
+                    <div id="tours" class="tab-content">
+                        <!-- PASTE YOUR Travelpayouts TOURS WIDGET SCRIPT HERE -->
+                        <h3>Popular Tours</h3>
+                        <p>Your tours widget will be displayed here.</p>
+                    </div>
+
+                    <!-- Cruises Tab -->
+                    <div id="cruises" class="tab-content">
+                        <form class="search-form">
+                             <div class="form-row">
+                                <div class="form-field"><label for="cruise-dest">Destination</label><input type="text" id="cruise-dest" placeholder="Any destination"></div>
+                                <div class="form-field"><label for="cruise-line">Cruise Line</label><input type="text" id="cruise-line" placeholder="Any cruise line"></div>
+                                <div class="form-field"><label for="cruise-date">Departure Date</label><input type="month" id="cruise-date"></div>
+                            </div>
+                             <div class="form-row">
+                                <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Search Cruises</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Packages Tab -->
+                    <div id="packages" class="tab-content">
+                        <form class="search-form">
+                             <div class="form-row">
+                                <div class="form-field"><label for="pkg-from">From</label><input type="text" id="pkg-from" placeholder="City or Airport"></div>
+                                <div class="form-field"><label for="pkg-to">To</label><input type="text" id="pkg-to" placeholder="Destination City"></div>
+                                <div class="form-field"><label for="pkg-depart">Depart</label><input type="date" id="pkg-depart"></div>
+                                <div class="form-field"><label for="pkg-return">Return</label><input type="date" id="pkg-return"></div>
+                            </div>
+                             <div class="form-row">
+                                <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Search Packages</button>
+                            </div>
+                        </form>
+                    </div>
+
+                     <!-- Insurance Tab -->
+                    <div id="insurance" class="tab-content">
+                        <form class="search-form">
+                             <div class="form-row">
+                                <div class="form-field"><label for="ins-dest">Destination</label><input type="text" id="ins-dest" placeholder="Country"></div>
+                                <div class="form-field"><label for="ins-start">Start Date</label><input type="date" id="ins-start"></div>
+                                <div class="form-field"><label for="ins-end">End Date</label><input type="date" id="ins-end"></div>
+                            </div>
+                             <div class="form-row">
+                                <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Get Quote</button>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -324,7 +450,7 @@
 
         // --- On Page Load ---
         document.addEventListener('DOMContentLoaded', () => {
-            showTab('tours');
+            showTab('flights'); // Default tab is now flights
             setTimeout(type, 500);
             const savedTheme = localStorage.getItem('theme') || 'light';
             applyTheme(savedTheme);
